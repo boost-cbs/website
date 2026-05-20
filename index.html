@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost — Digital Simplicity and Ease</title>
+    <link rel="icon" type="image/png" href="static/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --boost-red: #e6392e;
+            --boost-red-light: #f25c52;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #8a8aa3;
+            --bg: #fafbfc;
+            --bg-alt: #f0f1f5;
+            --border: #e2e4eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(250, 251, 252, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            border-bottom-color: var(--border);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+        }
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        nav .logo img { height: 32px; width: auto; }
+        nav .links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        nav .links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+        nav .links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--boost-red);
+            transition: width 0.3s ease;
+        }
+        nav .links a:hover { color: var(--text-primary); }
+        nav .links a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+        .hero .logo-large {
+            width: 220px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        .hero .tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+        .hero .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        section.alt {
+            background: var(--bg-alt);
+            max-width: 100%;
+            padding: 6rem 2rem;
+        }
+        section.alt .content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--boost-red);
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .lead {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        /* Problem */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .problem-card {
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+        .problem-card .icon {
+            width: 48px; height: 48px;
+            background: var(--bg-alt);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.25rem;
+            color: var(--boost-red);
+        }
+        .problem-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Flow */
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .flow-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+        .flow-item:hover {
+            border-color: var(--boost-red);
+            transform: scale(1.02);
+        }
+        .flow-item .icon-circle {
+            width: 64px; height: 64px;
+            background: var(--text-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+        .flow-item h4 { font-weight: 600; font-size: 1rem; }
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--boost-red);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .feature {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .feature .icon {
+            width: 44px; height: 44px;
+            background: var(--text-primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+        .feature h4 { font-weight: 600; margin-bottom: 0.25rem; }
+        .feature p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* Impact */
+        .impact-highlight {
+            background: var(--text-primary);
+            color: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .impact-highlight h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            max-width: 400px;
+        }
+        .impact-highlight .cta-btn {
+            background: var(--boost-red);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .impact-highlight .cta-btn:hover {
+            background: var(--boost-red-light);
+            transform: translateY(-2px);
+        }
+
+        /* Proposal */
+        .proposal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .proposal-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .proposal-card:hover {
+            border-color: var(--boost-red);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .proposal-card .icon-top {
+            font-size: 2rem;
+            color: var(--boost-red);
+            margin-bottom: 1rem;
+        }
+        .proposal-card .category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .proposal-card .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .proposal-card .label {
+            font-weight: 600;
+            margin-top: 0.5rem;
+            color: var(--text-secondary);
+        }
+        .total-row {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--text-primary);
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .total-row .total-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+        }
+        .total-row .total-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--boost-red-light);
+        }
+
+        /* Business Model */
+        .model-flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        .model-step {
+            padding: 2rem;
+            position: relative;
+        }
+        .model-step:not(:last-child)::after {
+            content: '\f061';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--boost-red);
+        }
+        .model-step .big-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--boost-red);
+            margin-bottom: 0.5rem;
+        }
+        .model-step .step-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .roi-box {
+            margin-top: 3rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, #2a2a4a 100%);
+            color: white;
+            border-radius: 24px;
+            text-align: center;
+        }
+        .roi-box .roi-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
+        }
+        .roi-box .roi-value {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--boost-red-light);
+        }
+        .roi-box .roi-sub {
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        footer .logo-footer {
+            width: 40px;
+            height: auto;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            nav .links { display: none; }
+            .problem-grid, .features-grid, .proposal-grid, .model-flow {
+                grid-template-columns: 1fr;
+            }
+            .flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .model-step:not(:last-child)::after {
+                content: '\f063';
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%);
+            }
+            .impact-highlight, .total-row {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <img src="static/logo.png" alt="Boost">
+        </a>
+        <ul class="links">
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#proposal">Proposal</a></li>
+            <li><a href="#impact">Impact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <img src="static/logo-large.png" alt="Boost" class="logo-large">
+        <p class="tagline">digital simplicity and ease.</p>
+        <div class="scroll-hint">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section id="problem" class="alt">
+        <div class="content">
+            <span class="section-label">The Challenge</span>
+            <h2>What needs improving?</h2>
+            <p class="lead">
+                Cambridge Building Society has strong client relationships, but their digital services are not as easy and simple to use as they could be. The client-side interface needs to evolve so users get exactly what they need — quickly, intuitively, and without friction.
+            </p>
+            <div class="problem-grid">
+                <div class="problem-card reveal">
+                    <div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <h3>Complex Interfaces</h3>
+                    <p>Current systems require too many steps for basic tasks like checking balances or applying for products.</p>
+                </div>
+                <div class="problem-card reveal">
+                    <div class="icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>User Expectations</h3>
+                    <p>Members expect the same seamless digital experience they get from modern fintech apps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution">
+        <span class="section-label">Our Approach</span>
+        <h2>How can this be done?</h2>
+        <p class="lead">
+            This transformation is accomplished through AI-powered tools that bridge the gap between complex back-end systems and effortless user experiences.
+        </p>
+        <div class="flow">
+            <div class="flow-item reveal">
+                <div class="icon-circle"><i class="fa-solid fa-brain"></i></div>
+                <h4>Artificial Intelligence</h4>
+            </div>
+            <span class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+            <div class="flow-item reveal">
+                <div class="icon-circle"><i class="fa-solid fa-desktop"></i></div>
+                <h4>Intuitive Systems</h4>
+            </div>
+            <span class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+            <div class="flow-item reveal">
+                <div class="icon-circle"><i class="fa-solid fa-user-plus"></i></div>
+                <h4>More Clients</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="alt">
+        <div class="content">
+            <span class="section-label">About Boost</span>
+            <h2>What is Boost?</h2>
+            <p class="lead">
+                Boost is a strategic initiative to embed AI directly into Cambridge Building Society's client interfaces — making every interaction smarter, faster, and more personal.
+            </p>
+            <div class="features-grid">
+                <div class="feature reveal">
+                    <div class="icon"><i class="fa-solid fa-desktop"></i></div>
+                    <div>
+                        <h4>Easier to Use</h4>
+                        <p>Streamlined interfaces that reduce cognitive load and guide users naturally.</p>
+                    </div>
+                </div>
+                <div class="feature reveal">
+                    <div class="icon"><i class="fa-solid fa-face-smile"></i></div>
+                    <div>
+                        <h4>Happier Members</h4>
+                        <p>Delightful experiences that increase satisfaction and long-term loyalty.</p>
+                    </div>
+                </div>
+                <div class="feature reveal">
+                    <div class="icon"><i class="fa-solid fa-coins"></i></div>
+                    <div>
+                        <h4>Simpler Financing</h4>
+                        <p>Transparent, jargon-free tools for mortgages, savings, and everyday banking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact">
+        <span class="section-label">Real Impact</span>
+        <h2>How can it have an impact?</h2>
+        <p class="lead">
+            For mortgages and savings accounts, CBS's services must be effortless. Digital experiences at the highest level empower users to manage their finances with confidence.
+        </p>
+        <div class="impact-highlight reveal">
+            <h3>When digital services are truly easy to use, member engagement and trust grow exponentially.</h3>
+            <a href="#proposal" class="cta-btn">See the Proposal <i class="fa-solid fa-arrow-right" style="margin-left:0.5rem"></i></a>
+        </div>
+    </section>
+
+    <section id="proposal" class="alt">
+        <div class="content">
+            <span class="section-label">Investment</span>
+            <h2>The Proposal</h2>
+            <p class="lead">
+                A focused investment across three pillars to bring Boost from concept to reality.
+            </p>
+            <div class="proposal-grid">
+                <div class="proposal-card reveal">
+                    <div class="icon-top"><i class="fa-solid fa-code"></i></div>
+                    <div class="category">Development</div>
+                    <div class="amount">£32,000</div>
+                    <div class="label">Building the platform</div>
+                </div>
+                <div class="proposal-card reveal">
+                    <div class="icon-top"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="category">Marketing</div>
+                    <div class="amount">£10,000</div>
+                    <div class="label">Reaching members</div>
+                </div>
+                <div class="proposal-card reveal">
+                    <div class="icon-top"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="category">Commercialisation</div>
+                    <div class="amount">£8,000</div>
+                    <div class="label">Launch & scale</div>
+                </div>
+            </div>
+            <div class="total-row reveal">
+                <div>
+                    <div class="total-label">Total Investment</div>
+                </div>
+                <div class="total-amount">£50,000</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <span class="section-label">Returns</span>
+        <h2>Business Model and Profit</h2>
+        <p class="lead">
+            To make Boost a reality requires upfront investment — but the returns position CBS for sustainable, long-term growth.
+        </p>
+        <div class="model-flow">
+            <div class="model-step reveal">
+                <div class="big-number">£50k</div>
+                <div class="step-label">Total Cost</div>
+            </div>
+            <div class="model-step reveal">
+                <div class="big-number">£1.2M</div>
+                <div class="step-label">EYID (Est. Year 1 Revenue)</div>
+            </div>
+            <div class="model-step reveal">
+                <div class="big-number">£1.15M</div>
+                <div class="step-label">ETP Per Year</div>
+            </div>
+        </div>
+        <div class="roi-box reveal">
+            <div class="roi-label">Estimated Annual Profit</div>
+            <div class="roi-value">£1,150,000</div>
+            <div class="roi-sub">A 23× return on the initial £50,000 investment</div>
+        </div>
+    </section>
+
+    <footer>
+        <img src="static/logo.png" alt="Boost" class="logo-footer">
+        <p>digital simplicity and ease.</p>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => revealObserver.observe(el));
+    </script>
+
+</body>
+</html>
